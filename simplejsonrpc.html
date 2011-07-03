@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Simple JSON RPC</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>  
+  <body>
+    <center>
+      <h1>Simple JSON RPC Schema</h1>
+    </center>
+    <h2>Introduction</h2>
+    <p>
+      To complement <a href="index.html">Simple JSON Schema</a>, Simple JSON RPC Schema is a way to specify a RPC end point using JSON.  A Simple JSON RPC file should end in <code>.sjrpc</code>.
+    </p>
+    <h2>RPC URL Convention</h2>
+    <p>
+      Assuming an end point with a Simple JSON RPC Schema is at <pre>http://example.com/path/</pre> then the Simple JSON RPC Schema should be available at <pre>http://example.com/path/?SimpleJSONRPCSchema</pre>
+    </p>
+    <h2>Simple JSON Schema</h2>
+    <p>
+      The Simple JSON Schema for a Simple JSON RPC file is:
+    <pre>
+{ "name" : "string",
+  "default_url" : "string",
+  "description" : "string",
+  "args" : [{ "name" : "string",
+              "type" : "string,
+              "default_value" : "string",
+              "description" : "string"}],
+  "return_type" : "string" }
+    </pre>  
+  <h2>Types</h2>
+  <h2>Examples</h2>
+  <table class="examples-table">
+    <tr>
+      <th>
+        RPC File
+      </th>
+      <th>
+        Example
+      </th>
+    </tr>
+    <tr>
+      <td>
+{ "name" : "string", "age" : "integer" }
+      </td>
+      <td>
+{ "name" : "Joe", "age" : "42" }
+      </td>
+    </tr>
+  <table>
+  </body>
+</html>

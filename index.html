@@ -1,53 +1,16 @@
 <html>
   <head>
     <title>Simple JSON Schema</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-  <style type="text/css">
-    body {
-      font-family : Verdana;
-      padding : 16px;
-    }
-    p {
-      padding : 4px;
-    }
-    pre {
-      margin : 16px;
-      padding : 16px;
-      background-color : #f5f5f5;
-      border : solid;
-      border-width : 1px;
-      border-color : gray;
-    }
-    li {
-      padding : 4px;
-    }
-
-    .examples-table {
-      width : 90%;
-      border : solid;
-      border-width : 1px;
-      border-color : gray;
-    }
-    .examples-table tr td {
-      border : solid;
-      border-width : 1px;
-      border-color : gray;
-      width : 50%;
-      padding:8px;
-      vertical-align:top;
-      text- align:left;
-      white-space:pre;
-      font-family:"Courier",courier;
-      background-color : #f5f5f5;
-    }
-  </style>
   <body>
     <center>
       <h1>Simple JSON Schema</h1>
+      <p><i>See also <a href="simplejsonrpc.html">Simple JSON RPC</a></i></p>
     </center>
     <h2>Introduction</h2>
     <p>
-      One of the great advantages of JSON is the fact that it is so simple.  It's grammar consists of fifteen easily understood productions.  It is both easy to parse and produce.
+      One of the great advantages of JSON is the fact that it is so simple.  Its grammar consists of fifteen easily understood productions.  It is both easy to parse and produce.
     </p>
     <p>
       A simple data interchange format demands a simple schema system.  Unfortunately the current standard schema for JSON, <a href="http://json-schema.org">JSON Schema</a> is quite complicated, deriving many of its ideas from the XML-based schemas.
@@ -68,6 +31,10 @@
         <li>Inter-schema references.  Library writers are encouraged to support <a href="http://en.wikipedia.org/wiki/Structural_type_system">structural typing</a> and similar concepts in their libraries to facilitate cross-schema data migration.</li>
         <li>Various useful data types (e.g. intervals).  The core primitive data types of Simple JSON Schema can be composed to represent data types.</li>
       </ul>
+    </p>
+    <h2>Schema URL Convention</h2>
+    <p>
+      Assuming JSON content matching a given schema is at <pre>http://example.com/path/</pre> then the Simple JSON Schema should be available at <pre>http://example.com/path/?SimpleJSONSchema</pre>
     </p>
     <h2>Grammar</h2>
     <pre>
