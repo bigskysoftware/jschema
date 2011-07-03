@@ -4,10 +4,11 @@
   </head>
   <style type="text/css">
     body {
+      font-family : Verdana;
       padding : 16px;
     }
     p {
-      padding : 8px;
+      padding : 4px;
     }
     pre {
       margin : 16px;
@@ -52,12 +53,20 @@
       A simple data interchange format demands a simple schema system.  Unfortunately the current standard schema for JSON, <a href="http://json-schema.org">JSON Schema</a> is quite complicated, deriving many of its ideas from the XML-based schemas.
     </p>
     <p>
-      The goal of Simple JSON Schema is to provide a simplified way to specify the structure of a JSON document.  The design points are:
+      The goal of Simple JSON Schema is to provide a simplified way to specify the structure of JSON content in a way that facilitates working with the content in a programming language environment.  The design points are:
       <ul>
         <li>Its grammar must be as simple as JSON itself</li>
         <li>It should provide enough flexibility to encompass most existing JSON content</li>
         <li>It should communicate the structure of the JSON document visually</li>
         <li>It should easily map to standard programming language concepts and data structures</li>
+      </ul>
+    </p>
+    <p>
+      In order to retain simplicity, it is necessary to forego useful features.  Some of the things that Simple JSON Schema does not allow are:
+      <ul>
+        <li>Named schema elements, which percludes recursive data structures, such as arbitrary depth trees.  Such structures can be modeled by a user using JSON attributes.</li>
+        <li>Inter-schema references.  Library writers are encouraged to support <a href="http://en.wikipedia.org/wiki/Structural_type_system">structural typing</a> and similar concepts in their libraries to facilitate cross-schema data migration.</li>
+        <li>Various useful data types (e.g. intervals).  The core primitive data types of Simple JSON Schema can be composed to represent data types.</li>
       </ul>
     </p>
     <h2>Grammar</h2>
@@ -171,22 +180,10 @@
     </tr>
     <tr>
       <td>
-{ "name" : "string", "age" : "integer"}
+{ "name" : "string", "age" : "integer" }
       </td>
       <td>
-{ "name" : "Joe", "age" : 42 }
-      </td>
-    </tr>
-    <tr>
-      <td>
-{ "people" : [ { "name" : "string", 
-                 "age" : "integer"} ] }
-      </td>
-      <td>
-{ "people" : [
-  { "name" : "Joe", "age" : 42 }
-  { "name" : "Paul", "age" : 28 }
-  { "name" : "Mack", "age" : 55 } ] }
+{ "name" : "Joe", "age" : "42" }
       </td>
     </tr>
     <tr>
@@ -196,9 +193,21 @@
       </td>
       <td>
 { "people" : [
-  { "name" : "Joe", "age" : 42 },
-  { "name" : "Paul", "age" : 28 },
-  { "name" : "Mack", "age" : 55 } ] }
+  { "name" : "Joe", "age" : "42" }
+  { "name" : "Paul", "age" : "28" }
+  { "name" : "Mack", "age" : "55" } ] }
+      </td>
+    </tr>
+    <tr>
+      <td>
+{ "people" : [ { "name" : "string", 
+                 "age" : "integer"} ] }
+      </td>
+      <td>
+{ "people" : [
+  { "name" : "Joe", "age" : "42" },
+  { "name" : "Paul", "age" : "28" },
+  { "name" : "Mack", "age" : "55" } ] }
       </td>
     </tr>
     <tr>
@@ -211,30 +220,30 @@
       </td>
       <td>
 { "people" : [
-  { "name" : "Joe", "age" : 42, "eye_color" : "brown" },
-  { "name" : "Paul", "age" : 28, "eye_color" : "brown" },
-  { "name" : "Mack", "age" : 55, "eye_color" : "blue" } ] }
+  { "name" : "Joe", "age" : "42", "eye_color" : "brown" },
+  { "name" : "Paul", "age" : "28", "eye_color" : "brown" },
+  { "name" : "Mack", "age" : "55", "eye_color" : "blue" } ] }
       </td>
     </tr>
     <tr>
       <td>
 { "id_to_people" : {
     "map_of" : {
-      "key" : "biginteger",
-      "value" : { "name" : "string", 
-                     "age" : "integer",
-                     "eye_color" : {"enum" : ["brown", 
-                                              "blue", 
-                                              "green"]}}
+    "key" : "biginteger",
+    "value" : { "name" : "string", 
+                "age" : "integer",
+                "eye_color" : {"enum" : ["brown", 
+                                         "blue", 
+                                         "green"]} }
     }
   }
 }
       </td>
       <td>
 { "id_to_people" : {
-    "1" : { "name" : "Joe", "age" : 42, "eye_color" : "brown" },
-    "2" : { "name" : "Paul", "age" : 28, "eye_color" : "brown" },
-    "3" : { "name" : "Mack", "age" : 55, "eye_color" : "blue" }
+    "1" : { "name" : "Joe", "age" : "42", "eye_color" : "brown" },
+    "2" : { "name" : "Paul", "age" : "28", "eye_color" : "brown" },
+    "3" : { "name" : "Mack", "age" : "55", "eye_color" : "blue" }
   }
 }
       </td>
