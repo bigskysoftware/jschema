@@ -48,7 +48,7 @@
     Given a JSchema-RPC Document and a function specification, an invocation of the function will be done as follows:
     <ul>
       <li>The "name" of the function will be appended to the "default_url" (or a different URL if the user has specified one)</li>
-      <li>The arguments will be passed along in a manner appropriate for the scheme specified in the URL.  In the case of http and its variants, this will be either as a query string or as post variables</li>
+      <li>The arguments will be passed along in a manner appropriate for the scheme specified in this composed URL.  In the case of http and its variants, this will be either as a query string or as post variables as a GET or POST, respectively.  End points should work with either of these options by default.  If an end point does not support a given HTTP method, however, it should say so in its documentation.</li>
       <li>The return content will be transformed into the type specified as the "return_type"</li>
     </ul>
   </p>
