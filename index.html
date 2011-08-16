@@ -11,16 +11,16 @@
     </center>
     <h2>Introduction</h2>
     <p>
-      One of the great advantages of JSON is the fact that it is so simple.  Its grammar consists of fifteen easily understood productions, making it both easy to parse and produce.
+      The great virtue of JSON is that it is simple.  Its grammar consists of fifteen productions, making it both easy to parse and produce.
     </p>
     <p>
-      A simple data interchange format demands a simple schema system.  Unfortunately the current schema standard for JSON, <a href="http://json-schema.org">JSON Schema</a> is complicated, deriving many ideas from the XML-based schemas.
+      A simple data interchange format demands a simple schema mechanism.  Sadly the current schema standard, <a href="http://json-schema.org">JSON Schema</a> is not.
     </p>
     <p>
-      JSchema provides a simple way to specify the structure of JSON content.  The design goals are:
+      JSchema fills this gap.  The design goals of JSchema are:
       <ul>
         <li>Its grammar should be as simple as JSON itself</li>
-        <li>It should provide enough flexibility to encompass most existing JSON content</li>
+        <li>It should be flexible enough to specify most existing JSON content</li>
         <li>It should communicate the structure of the JSON document visually</li>
         <li>It should map cleanly to standard programming language concepts and data structures</li>
       </ul>
@@ -29,7 +29,7 @@
       In order to retain simplicity it is necessary to forego some features.  JSchema does not allow:
       <ul>
         <li>Named schema elements</li>
-        <li>Mixed content</li>
+        <li>Mixed document content</li>
         <li>Various useful data types (e.g. intervals).</li>
       </ul>
     </p>
