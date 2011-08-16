@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <title>JSchema RPC</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>  
+  <body>
+    <center>
+      <h1>JSchema RPC</h1>
+    </center>
+    <h2>Introduction</h2>
+    <p>
+      To complement <a href="index.html">JSchema</a>, JSchema RPC is a way to specify a RPC end point using JSON.
+    </p>
+    <h2>RPC URL Convention and File Conventions</h2>
+    <p>
+      Assuming an end point is at <pre>http://example.com/path/</pre> then the JSchema-RPC should be available at <pre>http://example.com/path/?JSchema-RPC</pre>
+    </p>
+    <p>
+      Locally, JSchema-RPC files should end with the <code>.jscrpc</code> file suffix.
+    </p>
+    <h2>Grammar</h2>
+    <p>
+      The grammar for a JSchema-RPC file builds on the grammar for JSchema and JSON:
+    <pre>
+&lt;jschema_rpc_doc> ::= 
+  '{'
+    '"description"' ':' &lt;string> ',' 
+    '"default_url"' ':' &lt;string> ',' 
+    '"functions"' ':' '[' &lt;function_specs> ']'
+  '}'
+
+&lt;function_specs> ::= 
+  &lt;function_spec> | 
+  &lt;function_spec> ',' &lt;function_specs> 
+
+&lt;function_spec> ::= 
+  '{' '"name"' ':' &lt;string>,
+      '"description"' ':' &lt;string>,
+      '"args"' ':' '[' '{' '"name"' ':' &lt;string> ','
+                           '"type"' ':' &lt;type> ','
+                           '"default_value"' ':' &lt;object> ','
+                           '"description"' ':' &lt;string> '}' ']' ','
+      '"return_type"' ':' &lt;type> 
+  '}'
+    </pre>
+  <h2>Interpretation</h2>
+  <p>
+    Given a JSchema-RPC Document and a function specification, an invocation of the function will be done as follows:
+    <ul>
+      <li>The "name" of the function will be appended to the "default_url" (or a different URL if the user has specified one)</li>
+      <li>The arguments will be passed along in a manner appropriate for the scheme specified in the URL.  In the case of http and its variants, this will be either as a query string or as post variables</li>
+      <li>The return content will be transformed into the type specified as the "return_type"</li>
+    </ul>
+  </p>
+  <h2>Tools Note</h2>
+  <p>
+    It is expected that JSchema-RPC documents will be downloaded into local code repositories to avoid development-time dependencies on network resources.  When this is done, tool writers should make an effort to follow the transitive closure of JSchema resources and bring them down to the local machine, with the appropriate updates to references, ideally using relative URLs.
+  </p>
+  <p>
+    Ideally it should be easy for developers to update these local resources as necessary.
+  </p>
+  <h2>Examples</h2>
+  <table class="examples-table">
+    <tr>
+      <th>
+        JSchema-RPC File
+      </th>
+      <th>
+        Example usage (Gosu)
+      </th>
+    </tr>
+    <tr>
+      <td>
+// located at http://myserver:8080/EmployeeController?JSchema-RPC
+{ "description" : "Methods for manipulating employees",
+  "default_url" : "http://myserver:8080/EmployeeController",
+  "functions" : [
+    { "name" : "getEmployee",
+      "description" : "Returns the employee of the given name",
+      "args" : [ {"name" : "id", "type" : "biginteger" } ],
+      "return_type" : {
+        "ref", "http://myserver:8080/jschemas/Employee"
+      }
+    },
+    { "name" : "updateEmployee",
+      "description" : "Updates the given employee",
+      "args" : [ {"name" : "employee", 
+                  "type" : { 
+                    "ref", "http://myserver:8080/jschemas/Employee"
+                    } 
+                  } ],
+      "return_type" : "boolean"
+    }
+  ]
+}
+
+// located at http://myserver:8080/jschemas/Employee
+{
+  "first_name" : "string",
+  "last_name" : "string",
+  "age" : "integer"
+  "id" : "biginteger"
+}
+
+      </td>
+      <td>
+// Assuming the above file is in EmployeeFunctions.jscrpc:
+
+var empFunctions = new EmployeeFunctions()
+
+var myEmp = empFunctions.getEmployee()
+
+myEmp.Age++
+
+if( empFunctions.updateEmployee(myEmp) ) {
+  print( "Updated the age of ${myEmp.FirstName}")
+}
+      </td>
+    </tr>
+  <table>
+  </body>
+</html>
