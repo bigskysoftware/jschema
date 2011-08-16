@@ -79,14 +79,14 @@
       "description" : "Returns the employee of the given name",
       "args" : [ {"name" : "id", "type" : "biginteger" } ],
       "return_type" : {
-        "ref", "http://myserver:8080/jschemas/Employee"
+        "##ref", "http://myserver:8080/jschemas/Employee"
       }
     },
     { "name" : "updateEmployee",
       "description" : "Updates the given employee",
       "args" : [ {"name" : "employee", 
                   "type" : { 
-                    "ref", "http://myserver:8080/jschemas/Employee"
+                    "##ref", "http://myserver:8080/jschemas/Employee"
                     } 
                   } ],
       "return_type" : "boolean"
