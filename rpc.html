@@ -49,8 +49,23 @@
     <ul>
       <li>The "name" of the function will be appended to the "default_url" (or a different URL if the user has specified one)</li>
       <li>The arguments will be passed along in a manner appropriate for the scheme specified in this composed URL.  In the case of http and its variants, this will be either as a query string or as post variables as a GET or POST, respectively.  End points should work with either of these options by default.  If an end point does not support a given HTTP method, however, it should say so in its documentation.</li>
-      <li>The return content will be transformed into the type specified as the "return_type"</li>
+      <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
     </ul>
+  </p>
+  <h2>Exceptions</h2>
+  <p>
+    Exceptions may be raised by a JSchema-RPC end point using a return value of the following form:
+    <pre>
+&lt;jschema_rpc_exception ::= 
+  '{'
+    '"@@exception"' ':' &lt;string> &lt;optional_trace>
+  '}'
+
+&lt;optional_trace ::=  
+  '' | 
+  ',' '"@@trace"' ':' &lt;string>    
+</pre>
+    End point creators should strive to provide useful traces, including elements only relevant to the remote procedure, rather than implementation details of the invocation.
   </p>
   <h2>Tools Note</h2>
   <p>
@@ -108,12 +123,12 @@
 
 var empFunctions = new EmployeeController()
 
-var myEmp = empFunctions.getEmployee()
+var myEmp = empFunctions.getEmployee(42)
 
-myEmp.Age++
+myEmp.age++
 
 if( empFunctions.updateEmployee(myEmp) ) {
-  print( "Updated the age of ${myEmp.FirstName}")
+  print( "Updated the age of ${myEmp.first_name}")
 }
       </td>
     </tr>
