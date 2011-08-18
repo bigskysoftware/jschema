@@ -61,7 +61,8 @@
   <a href="#integer_type">"integer"</a> |
   <a href="#decimal_type">"decimal"</a> |
   <a href="#biginteger_type">"biginteger"</a> |
-  <a href="#bigdecimal_type">"bigdecimal"</a>
+  <a href="#bigdecimal_type">"bigdecimal"</a> |
+  <a href="#object_type">"object"</a>
 
 <a href="#struct_type">&lt;struct_type></a> ::= 
   '{' &lt;props> '}'
@@ -77,7 +78,7 @@
   '[' type ']'
 
 <a href="#array_type">&lt;map_type></a> ::=
-  '{' '"map_of"' ':' '{' '"key"' ':' &lt;type>, '"value"' ':' &lt;type>  '}' '}'
+  '{' '"map_of"' ':' &lt;type> '}'
 
 <a href="#enum_type">&lt;enum_type></a> ::= 
   '{' '"enum"' ':' '[' &lt;enum_values> ']' '}'
@@ -127,6 +128,11 @@
     A bigdecimal may be a JSON number representing any number of arbitrary size and precision.
   </p>
 
+  <a name="object_type"><h3>Object Type</h3></a>
+  <p>
+    An object can be any arbitrary JSON object
+  </p>
+
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
     A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification, but should not return any fields not specified in the json struct specification.
@@ -139,7 +145,7 @@
 
   <a name="map_type"><h3>Map Type</h3></a>
   <p>
-    A map type defines defines the values of a JSON object.  For each pair in the JSON object, the first value must satisfy the first type definition and the second value must satisfy the second type definition.
+    A map type defines a JSON object with arbitrary members.  For each member in the JSON object, the member value must satisfy the RHS type definition.
   </p>
 
   <a name="enum_type"><h3>Enum Type</h3></a>
@@ -212,22 +218,20 @@
     <tr>
       <td>
 { "id_to_people" : {
-    "map_of" : {
-    "key" : "biginteger",
-    "value" : { "name" : "string", 
-                "age" : "integer",
-                "eye_color" : {"enum" : ["brown", 
-                                         "blue", 
-                                         "green"]} }
+    "map_of" : { "name" : "string", 
+                 "age" : "integer",
+                 "eye_color" : {"enum" : ["brown", 
+                                          "blue", 
+                                          "green"]}
     }
   }
 }
       </td>
       <td>
 { "id_to_people" : {
-    1 : { "name" : "Joe", "age" : 42, "eye_color" : "brown" },
-    2 : { "name" : "Paul", "age" : 28, "eye_color" : "brown" },
-    3 : { "name" : "Mack", "age" : 55, "eye_color" : "blue" }
+    "1" : { "name" : "Joe", "age" : 42, "eye_color" : "brown" },
+    "2" : { "name" : "Paul", "age" : 28, "eye_color" : "brown" },
+    "3" : { "name" : "Mack", "age" : 55, "eye_color" : "blue" }
   }
 }
       </td>
