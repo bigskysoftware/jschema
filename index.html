@@ -100,7 +100,7 @@
 
   <a name="boolean_type"><h3>"boolean"</h3></a>
   <p>
-    A boolean may have a value of either the JSON String "true" or the JSON string "false".
+    A boolean may have a value of 'true' or 'false', sans quotes, per the JSON specification.
   </p>
 
   <a name="date_type"><h3>"date"</h3></a>
@@ -135,7 +135,7 @@
 
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
-    A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification, but should not return any fields not specified in the json struct specification.
+    A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification.  Additionally, fields not mentioned in the struct should be preserved at runtime for re-serialization.
   </p>
 
   <a name="array_type"><h3>Array Type</h3></a>
@@ -156,6 +156,16 @@
   <a name="ref_type"><h3>Ref Type</h3></a>
   <p>
     A ref type is a reference to a jschema document.  The second element is a URL that the jschema content can be retrieved from.
+  </p>
+
+  <h2>Null</h2>
+  <p>
+    All values in a JSchema schema are nullable.  The interpretation of the null value is left to implementations, with the caveat that null should be preserved for re-serialization.
+  </p>
+
+  <h2>Comments</h2>
+  <p>
+    JSchema implementations are required to <a href="http://tech.groups.yahoo.com/group/json/message/152">accept c-style comments</a> in JSchema files.
   </p>
 
   <h2>Examples</h2>
