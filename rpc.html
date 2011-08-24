@@ -25,7 +25,7 @@
 &lt;jschema_rpc_doc> ::= 
   '{'
     '"description"' ':' &lt;string> ',' 
-    '"default_url"' ':' &lt;string> ',' 
+    '"url"' ':' &lt;string> ',' 
     '"functions"' ':' '[' &lt;function_specs> ']'
   '}'
 
@@ -36,19 +36,28 @@
 &lt;function_spec> ::= 
   '{' '"name"' ':' &lt;string>,
       '"description"' ':' &lt;string>,
-      '"args"' ':' '[' '{' '"name"' ':' &lt;string> ','
-                           '"type"' ':' &lt;type> ','
-                           '"default_value"' ':' &lt;object> ','
-                           '"description"' ':' &lt;string> '}' ']' ','
+      '"args"' ':' '[' '{' &lt;arg_spec> '}' ']' ','
       '"return_type"' ':' &lt;type> 
   '}'
+  
+&lt;arg_spec> ::=
+  &lt;string> ':' &lt;type> &lt;default> &tl;description>
+
+&lt;default> ::=
+  ',' 'default' ':' &tl;object> |
+  ''
+&lt;description> ::=
+  ',' 'description' ':' &tl;string> |
+  ''
+  
+  
     </pre>
   <h2>Interpretation</h2>
   <p>
     Given a JSchema-RPC Document and a function specification, an invocation of the function will be done as follows:
     <ul>
-      <li>The "name" of the function will be appended to the "default_url" (or a different URL if the user has specified one)</li>
-      <li>The arguments will be passed along in a manner appropriate for the scheme specified in this composed URL.  In the case of http and its variants, this will be either as a query string or as post variables as a GET or POST, respectively.  End points should work with either of these options by default.  If an end point does not support a given HTTP method, however, it should say so in its documentation.</li>
+      <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one)</li>
+      <li>The arguments will be passed along in a manner appropriate for the scheme specified in this composed URL.  In the case of http and its variants, this will be either as a query string or as post variables as a GET or POST, respectively. Values must be provided for every parameter that does not have a default value.  Note: if an end point does not support a given HTTP method, it should say so in its documentation.</li>
       <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
     </ul>
   </p>
@@ -88,22 +97,18 @@
       <td>
 // located at http://myserver:8080/EmployeeController?JSchema-RPC
 { "description" : "Methods for manipulating employees",
-  "default_url" : "http://myserver:8080/EmployeeController",
+  "url" : "http://myserver:8080/EmployeeController",
   "functions" : [
     { "name" : "getEmployee",
       "description" : "Returns the employee of the given name",
-      "args" : [ {"name" : "id", "type" : "biginteger" } ],
+      "args" : [ {"id" : "biginteger" } ],
       "return_type" : {
         "ref@" : "http://myserver:8080/jschemas/Employee"
       }
     },
     { "name" : "updateEmployee",
       "description" : "Updates the given employee",
-      "args" : [ {"name" : "employee", 
-                  "type" : { 
-                    "ref@" : "http://myserver:8080/jschemas/Employee"
-                    } 
-                  } ],
+      "args" : [ { "employee", { "ref@" : "http://myserver:8080/jschemas/Employee" } } ],
       "return_type" : "boolean"
     }
   ]
@@ -113,7 +118,7 @@
 {
   "first_name" : "string",
   "last_name" : "string",
-  "age" : "integer"
+  "age" : "integer",
   "id" : "biginteger"
 }
 
