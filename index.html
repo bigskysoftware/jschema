@@ -19,7 +19,7 @@
     <p>
       JSchema fills this gap.  The design goals of JSchema are:
       <ul>
-        <li>Its grammar should be as simple as JSON itself</li>
+        <li>Its grammar should be at most 15 productions beyond JSON</li>
         <li>It should be flexible enough to specify most existing JSON content</li>
         <li>It should communicate the structure of the JSON document visually</li>
         <li>It should map cleanly to standard programming language concepts and data structures</li>
@@ -62,14 +62,30 @@
   <a href="#decimal_type">'"decimal"'</a> |
   <a href="#biginteger_type">'"biginteger"'</a> |
   <a href="#bigdecimal_type">'"bigdecimal"'</a> |
+  <a href="#bigdecimal_type">'"self"'</a> |
+  <a href="#type_defs">&lt;string></a> |
   <a href="#object_type">'"object"'</a>
 
 <a href="#struct_type">&lt;struct_type></a> ::= 
-  '{' &lt;props> '}'
+  '{' &lt;typedefs_and_props> '}'
+
+&lt;typedefs_and_props> ::= 
+    &lt;typedefs_map> ',' &lt;props> |
+    &lt;props> |
+
+&lt;typedefs_map> ::= 
+    '"typedefs@"' ':' '{' &lt;type_defs> '}'
+
+<a href="#type_defs">&lt;type_defs></a> ::= 
+  &lt;type_def> |
+  &lt;type_def> ',' &lt;type_defs>
+
+&lt;type_def> ::= 
+  &lt;string> ':' &lt;struct_type>
 
 &lt;props> ::= 
-  prop |
-  prop ',' props
+  &lt;prop> |
+  &lt;prop> ',' &lt;props>
 
 &lt;prop> ::= 
   &lt;string> ':' &lt;type>
@@ -128,6 +144,11 @@
     A bigdecimal may be a JSON number representing any number of arbitrary size and precision.
   </p>
 
+  <a name="self_type"><h3>Self Type</h3></a>
+  <p>
+    A 'self' may be a JSON object satisfying the current JSchema.  This can be used to define recursive types, such as trees.
+  </p>
+
   <a name="object_type"><h3>Object Type</h3></a>
   <p>
     An object can be any arbitrary JSON object
@@ -136,6 +157,11 @@
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
     A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification.  Additionally, fields not mentioned in the struct should be preserved at runtime for re-serialization.
+  </p>
+
+  <a name="type_defs"><h3>Struct TypeDefs</h3></a>
+  <p>
+    A struct type may define named types to refer to by using the '@typedef' syntax.  This allows structs to reuse types at various points and define recursive types.  The names must be unique and not conflict with the core type names.
   </p>
 
   <a name="array_type"><h3>Array Type</h3></a>

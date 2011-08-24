@@ -26,8 +26,13 @@
   '{'
     '"description"' ':' &lt;string> ',' 
     '"url"' ':' &lt;string> ',' 
+    &lt;optional_typedefs>
     '"functions"' ':' '[' &lt;function_specs> ']'
   '}'
+  
+&lt;optional_typedefs>
+  '' |
+  &lt;typedefs_map>
 
 &lt;function_specs> ::= 
   &lt;function_spec> | 
@@ -95,33 +100,29 @@
     </tr>
     <tr>
       <td>
-// located at http://myserver:8080/EmployeeController?JSchema-RPC
 { "description" : "Methods for manipulating employees",
-  "url" : "http://myserver:8080/EmployeeController",
+  "url" : "http://myserver:8080/employees",
+  "typedefs@" : {
+    "Employee" : {
+      "first_name" : "string",
+      "last_name" : "string",
+      "age" : "integer",
+      "id" : "biginteger"
+    }
+  }
   "functions" : [
     { "name" : "getEmployee",
       "description" : "Returns the employee of the given name",
       "args" : [ {"id" : "biginteger" } ],
-      "return_type" : {
-        "ref@" : "http://myserver:8080/jschemas/Employee"
-      }
+      "return_type" : "Employee"
     },
     { "name" : "updateEmployee",
       "description" : "Updates the given employee",
-      "args" : [ { "employee", { "ref@" : "http://myserver:8080/jschemas/Employee" } } ],
+      "args" : [ { "employee", "Employee" } ],
       "return_type" : "boolean"
     }
   ]
 }
-
-// located at http://myserver:8080/jschemas/Employee
-{
-  "first_name" : "string",
-  "last_name" : "string",
-  "age" : "integer",
-  "id" : "biginteger"
-}
-
       </td>
       <td>
 // Assuming the above file is in EmployeeController.jscrpc:
