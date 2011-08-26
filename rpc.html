@@ -79,14 +79,21 @@
     <pre>
 &lt;jschema_rpc_exception ::= 
   '{'
-    '"exception@"' ':' &lt;string> &lt;optional_trace>
+    '"exception@"' ':' &lt;string> &lt;optional_type> &lt;optional_trace>
   '}'
+
+&lt;optional_type ::=  
+  '' | 
+  ',' '"exception_type@"' ':' &lt;string>    
 
 &lt;optional_trace ::=  
   '' | 
   ',' '"trace@"' ':' &lt;string>    
 </pre>
     End point creators should strive to provide useful traces, including elements only relevant to the remote procedure, rather than implementation details of the invocation.
+  </p>
+  <p>
+    The optional 'exception_type@' element and is only a hint to the client.  Clients should make a best effort to produce an equivalent exception on their side.
   </p>
   <h2>Tools Note</h2>
   <p>
@@ -107,8 +114,8 @@
     </tr>
     <tr>
       <td>
-{ "description" : "Methods for manipulating employees",
-  "url" : "http://myserver:8080/employees",
+{ "url" : "http://myserver:8080/employees",
+  "description" : "Methods for manipulating employees",
   "typedefs@" : {
     "Employee" : {
       "first_name" : "string",
