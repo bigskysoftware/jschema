@@ -70,12 +70,12 @@
     <pre>
 &lt;jschema_rpc_exception ::= 
   '{'
-    '"@@exception"' ':' &lt;string> &lt;optional_trace>
+    '"exception@"' ':' &lt;string> &lt;optional_trace>
   '}'
 
 &lt;optional_trace ::=  
   '' | 
-  ',' '"@@trace"' ':' &lt;string>    
+  ',' '"trace@"' ':' &lt;string>    
 </pre>
     End point creators should strive to provide useful traces, including elements only relevant to the remote procedure, rather than implementation details of the invocation.
   </p>
