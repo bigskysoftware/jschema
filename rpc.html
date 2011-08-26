@@ -22,38 +22,47 @@
     <p>
       The grammar for a JSchema-RPC file builds on the grammar for JSchema and JSON:
     <pre>
-&lt;jschema_rpc_doc> ::= 
+&lt;rpc> ::= 
   '{'
-    '"description"' ':' &lt;string> ',' 
-    '"url"' ':' &lt;string> ',' 
+    '"url"' ':' &lt;string> 
+    &lt;optional_description>
     &lt;optional_typedefs>
     '"functions"' ':' '[' &lt;function_specs> ']'
   '}'
   
+&lt;optional_description>
+  '' |
+  ',' '"description"' ':' &lt;string> ',' 
+
 &lt;optional_typedefs>
   '' |
-  &lt;typedefs_map>
+  ',' &lt;typedefs_map>
 
 &lt;function_specs> ::= 
   &lt;function_spec> | 
   &lt;function_spec> ',' &lt;function_specs> 
 
 &lt;function_spec> ::= 
-  '{' '"name"' ':' &lt;string>,
-      '"description"' ':' &lt;string>,
-      '"args"' ':' '[' '{' &lt;arg_spec> '}' ']' ','
-      '"return_type"' ':' &lt;type> 
+  '{' '"name"' ':' &lt;string>
+      &lt;optional_description>
+      ',' '"args"' ':' '[' &lt;arg_specs ']'
+      &lt;optional_return_type>
   '}'
+
+&lt;arg_specs> ::=
+  '' |
+  &lt;arg_spec> |
+  &lt;arg_spec> ',' &lt;arg_specs>
   
 &lt;arg_spec> ::=
-  &lt;string> ':' &lt;type> &lt;default> &lt;description>
+  '{' &lt;string> ':' &lt;type> &lt;optional_default> &lt;optional_description> '}'
 
-&lt;default> ::=
+&lt;optional_default> ::=
   ',' 'default' ':' &lt;object> |
   ''
-&lt;description> ::=
-  ',' 'description' ':' &lt;string> |
-  ''
+&lt;optional_return_type> ::=
+    ',' 'returns' ':' &lt;type> |
+    ''
     </pre>
   <h2>Interpretation</h2>
   <p>
