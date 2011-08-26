@@ -45,7 +45,7 @@
 &lt;function_spec> ::= 
   '{' '"name"' ':' &lt;string>
       &lt;optional_description>
-      ',' '"args"' ':' '[' &lt;arg_specs ']'
+      ',' '"args"' ':' '[' &lt;arg_specs> ']'
       &lt;optional_return_type>
   '}'
 
@@ -58,10 +58,10 @@
   '{' &lt;string> ':' &lt;type> &lt;optional_default> &lt;optional_description> '}'
 
 &lt;optional_default> ::=
-  ',' 'default' ':' &lt;object> |
+  ',' '"default"' ':' &lt;object> |
   ''
 &lt;optional_return_type> ::=
-    ',' 'returns' ':' &lt;type> |
+    ',' '"returns"' ':' &lt;type> |
     ''
     </pre>
   <h2>Interpretation</h2>
