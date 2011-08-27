@@ -64,7 +64,7 @@
     ',' '"returns"' ':' &lt;type> |
     ''
     </pre>
-  <h2>Interpretation</h2>
+  <h2>Invocation</h2>
   <p>
     Given a JSchema-RPC Document and a function specification, an invocation of the function will be done as follows:
     <ul>
@@ -77,16 +77,16 @@
   <p>
     Exceptions may be raised by a JSchema-RPC end point using a return value of the following form:
     <pre>
-&lt;jschema_rpc_exception ::= 
+&lt;jschema_rpc_exception> ::= 
   '{'
     '"exception@"' ':' &lt;string> &lt;optional_type> &lt;optional_trace>
   '}'
 
-&lt;optional_type ::=  
+&lt;optional_type> ::=  
   '' | 
   ',' '"exception_type@"' ':' &lt;string>    
 
-&lt;optional_trace ::=  
+&lt;optional_trace> ::=  
   '' | 
   ',' '"trace@"' ':' &lt;string>    
 </pre>
@@ -95,14 +95,7 @@
   <p>
     The optional 'exception_type@' element is only a hint to the client.  Client implementations should make a best effort to produce an equivalent exception on their side, but there are no guarantees regarding the type of exception produced.
   </p>
-  <h2>Tools Note</h2>
-  <p>
-    It is expected that JSchema-RPC documents will be downloaded into local code repositories to avoid development-time dependencies on network resources.  When this is done, tool writers should make an effort to follow the transitive closure of JSchema resources and bring them down to the local machine, with the appropriate updates to references, ideally using relative URLs.
-  </p>
-  <p>
-    Ideally it should be easy for developers to update these local resources as necessary.
-  </p>
-  <h2>Examples</h2>
+  <h2>Example</h2>
   <table class="examples-table">
     <tr>
       <th>

@@ -81,6 +81,7 @@
 
 &lt;type_def_type> ::= 
     &lt;struct_type> |
+    &lt;ref_type> |
     &lt;enum_type>
 
 &lt;props> ::= 
@@ -161,7 +162,10 @@
 
   <a name="type_defs"><h3>Struct TypeDefs</h3></a>
   <p>
-    A struct type may define named types to refer to by using the '@typedef' syntax.  This allows structs to reuse types at various points and define recursive types.  The names must be unique and not conflict with the core type names.
+    A struct type may define named types to refer to by using the 'typedef@' syntax.  This allows structs to reuse types at various points and define recursive types.  The names must be unique and not conflict with the core type names.
+  </p>
+  <p>
+    A typedef may refer to a Struct Type, an Enum Type or a Ref Type.  In the case of the Ref Type, typedefs from the referenced JSchema document are included in the current Struct Type.
   </p>
 
   <a name="array_type"><h3>Array Type</h3></a>
