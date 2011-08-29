@@ -16,7 +16,7 @@
       Assuming an end point is at <pre>http://example.com/path/</pre> then the JSchema-RPC should be available at <pre>http://example.com/path/?JSchema-RPC</pre>
     </p>
     <p>
-      Locally, JSchema-RPC files should end with the <code>.jscrpc</code> file suffix.
+      Locally, JSchema-RPC files should end with the <code>.jsc-rpc</code> file suffix.
     </p>
     <h2>Grammar</h2>
     <p>
@@ -95,7 +95,7 @@
   <p>
     The optional 'exception_type@' element is only a hint to the client.  Client implementations should make a best effort to produce an equivalent exception on their side, but there are no guarantees regarding the type of exception produced.
   </p>
-  <h2>Example</h2>
+  <h2>Examples</h2>
   <table class="examples-table">
     <tr>
       <th>
@@ -132,7 +132,7 @@
 }
       </td>
       <td>
-// Assuming the above file is in EmployeeController.jscrpc:
+// Assuming the above file is in EmployeeController.jsc-rpc:
 
 var empController = new EmployeeController()
 

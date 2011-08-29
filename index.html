@@ -157,7 +157,7 @@
 
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
-    A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification.  Additionally, fields not mentioned in the struct should be preserved at runtime for re-serialization.
+    A struct type defines a structure for a JSON object.  Note that the returned JSON document need not include every field specified in the struct specification, and should be considered null if it is not present.  Additionally, fields not mentioned in the Struct Typ may be present, and should be preserved at runtime for re-serialization.
   </p>
 
   <a name="type_defs"><h3>Struct TypeDefs</h3></a>
