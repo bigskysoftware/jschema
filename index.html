@@ -156,7 +156,7 @@
 
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
-    A struct type defines a JSON object by a series of name/type pairs. A conforming JSON object may not have a value for every name in the struct specification, and the value should be considered null if it is not present.  Additionally, fields not mentioned in the Struct Type may be present and should be preserved at runtime for re-serialization.
+    A struct type defines a JSON object by a series of name/type pairs. For each name/type pair, a conforming JSON object, if a pair with the name is present, will have a value conforming to the type.  If the name is not present, it is interpreted as being null.  Additionally, pairs not mentioned in the Struct Type may be present and should be preserved at runtime for re-serialization.
   </p>
 
   <a name="type_defs"><h3>Struct TypeDefs</h3></a>
