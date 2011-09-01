@@ -13,7 +13,7 @@
     </p>
     <h2>RPC URL Convention and File Conventions</h2>
     <p>
-      Assuming an end point is at <pre>http://example.com/path/</pre> then the JSchema-RPC should be available at <pre>http://example.com/path/?JSchema-RPC</pre>
+      Given an end point at <pre>http://example.com/path/</pre>, the JSchema-RPC should be available at <pre>http://example.com/path/?JSchema-RPC</pre>
     </p>
     <p>
       Locally, JSchema-RPC files should end with the <code>.jsc-rpc</code> file suffix.
@@ -66,10 +66,10 @@
     </pre>
   <h2>Invocation</h2>
   <p>
-    Given a JSchema-RPC Document and a function specification, an invocation of the function will be done as follows:
+    Given a JSchema-RPC Document and a function specification, invocation of the function will be done as follows:
     <ul>
       <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one)</li>
-      <li>The arguments will be passed along in a manner appropriate for the scheme specified in this composed URL.  In the case of http and its variants, this will be either as a query string or as post variables as a GET or POST, respectively. Values must be provided for every parameter that does not have a default value.  Note: if an end point does not support a given HTTP method, it should say so in its documentation.</li>
+      <li>The arguments will be passed by name in a manner appropriate for the scheme specified in the composed URL.  In the case of http/https, this will be either as a query string or as post variables as a GET or POST, respectively.  If an argument is not included it will be interpreted as 'null' unless a default value is specified.</li>
       <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
     </ul>
   </p>
