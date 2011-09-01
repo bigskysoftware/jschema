@@ -75,7 +75,7 @@
   <p>
     Given a JSchema-RPC Document and a function specification, invocation of the function will be done as follows:
     <ul>
-      <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one)</li>
+      <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one) using the separator appropriate for the protocol</li>
       <li>The arguments will be passed by name in a manner appropriate for the scheme specified in the composed URL.  In the case of http/https, this will be either as a query string or as post variables as a GET or POST, respectively.  If an argument is not included it will be interpreted as 'null' unless a default value is specified.</li>
       <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
     </ul>
