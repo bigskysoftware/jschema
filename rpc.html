@@ -64,6 +64,15 @@
     ',' '"returns"' ':' &lt;type> |
     ''
     </pre>
+  <h2>Implementation Notes</h2>
+  <p>
+    <ul>
+      <li>All functions must have unique names.</li>
+      <li>If a function does not specify a return value, it is interpreted as being a 'void' function.</li>
+      <li>The 'self' type is not supported in JSchema-RPC files.</li>
+      <li>JSchema is explicitly silent on things like authentication, which should be handled at the protocol or application level.</li>
+    </ul>
+  </p>
   <h2>Invocation</h2>
   <p>
     Given a JSchema-RPC Document and a function specification, invocation of the function will be done as follows:
