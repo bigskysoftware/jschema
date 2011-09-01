@@ -143,14 +143,12 @@
       <td>
 // Assuming the above file is in EmployeeController.jsc-rpc:
 
-var empController = new EmployeeController()
+var myEmp = EmployeeController.getEmployee(42)
 
-var myEmp = empController.getEmployee(42)
+myEmp.Age++
 
-myEmp.age++
-
-if( empController.updateEmployee(myEmp) ) {
-  print( "Updated the age of ${myEmp.first_name}")
+if( EmployeeController.updateEmployee(myEmp) ) {
+  print( "Updated the age of ${myEmp.FirstName}")
 }
       </td>
     </tr>
