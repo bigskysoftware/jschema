@@ -73,10 +73,11 @@
     '"typedefs@"' ':' '{' &lt;type_defs> '}'
 
 <a href="#type_defs">&lt;type_defs></a> ::= 
-  &lt;type_def> |
-  &lt;type_def> ',' &lt;type_defs>
+  &lt;type_def_or_import> |
+  &lt;type_def_or_import> ',' &lt;type_defs>
 
-&lt;type_def> ::= 
+&lt;type_def_or_import> ::=
+  '"import@"' ':' &lt;string> | 
   &lt;string> ':' &lt;type_def_type>
 
 &lt;type_def_type> ::= 
@@ -102,9 +103,6 @@
 &lt;enum_values> ::=
   string
   string ',' &lt;enum_values>
-
-<a href="#ref_type">&lt;ref_type></a> ::=
-  '{' '"ref@"' ':' string '}'
     </pre>
     
   <h2>Types</h2>
@@ -164,6 +162,9 @@
     A struct type may define other types to refer to by name using the 'typedef@' syntax. A typedef consists of a string name and a type definition.  The name of each typedef must be unique and not conflict with the core type names.  Typedef names are valid within the context of the struct type they are defined in.
   </p>
   <p>
+    Typedefs may be imported from the top level struct of another file by using the 'import@ : <i>url</i>' syntax. In the case of conflicting typedef names, the last definition of a typedef wins.
+  </p>
+  <p>
     Typedefs may be either Struct Types or Enum Types.
   </p>
 
@@ -180,11 +181,6 @@
   <a name="enum_type"><h3>Enum Type</h3></a>
   <p>
     An enum must have a string value from domain specified in the array on the right hand side.
-  </p>
-
-  <a name="ref_type"><h3>Ref Type</h3></a>
-  <p>
-    A ref type is a reference to a jschema document.  The second element is a URL that the jschema content can be retrieved from.
   </p>
 
   <h2>Nullability</h2>
