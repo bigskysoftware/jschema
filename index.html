@@ -124,7 +124,7 @@
 
   <a name="integer_type"><h3>"int"</h3></a>
   <p>
-    An integer may be a JSON int.
+    An int may be a JSON int.
   </p>
 
   <a name="number_type"><h3>"number"</h3></a>
@@ -195,7 +195,7 @@
     </tr>
     <tr>
       <td>
-{ "name" : "string", "age" : "integer" }
+{ "name" : "string", "age" : "int" }
       </td>
       <td>
 { "name" : "Joe", "age" : 42 }
@@ -204,7 +204,7 @@
     <tr>
       <td>
 { "people" : [ { "name" : "string", 
-                 "age" : "integer"} ] }
+                 "age" : "int"} ] }
       </td>
       <td>
 { "people" : [
@@ -216,7 +216,7 @@
     <tr>
       <td>
 { "people" : [ { "name" : "string", 
-                 "age" : "integer"} ] }
+                 "age" : "int"} ] }
       </td>
       <td>
 { "people" : [
@@ -228,7 +228,7 @@
     <tr>
       <td>
 { "people" : [ { "name" : "string", 
-                 "age" : "integer",
+                 "age" : "int",
                  "eye_color" : {"enum" : ["brown", 
                                           "blue", 
                                           "green"]}} ] }
@@ -244,7 +244,7 @@
       <td>
 { "id_to_people" : {
     "map_of" : { "name" : "string", 
-                 "age" : "integer",
+                 "age" : "int",
                  "eye_color" : {"enum" : ["brown", 
                                           "blue", 
                                           "green"]}
