@@ -57,6 +57,7 @@
   <a href="#string_type">'"string"'</a> |
   <a href="#boolean_type">'"boolean"'</a> |
   <a href="#date_type">'"date"'</a> |
+  <a href="#uri_type">'"uri"'</a> |
   <a href="#integer_type">'"int"'</a> |
   <a href="#number_type">'"number"'</a> |
   <a href="#self_type">'"self"'</a> |
@@ -94,7 +95,7 @@
 <a href="#array_type">&lt;array_type></a> ::= 
   '[' type ']'
 
-<a href="#array_type">&lt;map_type></a> ::=
+<a href="#map_type">&lt;map_type></a> ::=
   '{' '"map_of"' ':' &lt;type> '}'
 
 <a href="#enum_type">&lt;enum_type></a> ::= 
@@ -120,6 +121,11 @@
   <a name="date_type"><h3>"date"</h3></a>
   <p>
     A date may be a JSON string in any format specified by the W3C <a href="http://www.w3.org/TR/NOTE-datetime">NOTE-datetime</a>.
+  </p>
+
+  <a name="uri_type"><h3>"uri"</h3></a>
+  <p>
+    A uri may be a JSON string that is a valid URI.
   </p>
 
   <a name="integer_type"><h3>"int"</h3></a>
