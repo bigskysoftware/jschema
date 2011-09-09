@@ -14,7 +14,7 @@
       The great virtue of JSON is that it is simple.  Its grammar consists of 15 productions, making it both easy to parse and produce.
     </p>
     <p>
-      A simple data interchange format demands a simple schema mechanism.  Sadly, the current schema standard, <a href="http://json-schema.org">JSON Schema</a>, is not.
+      A simple data interchange format demands a simple schema mechanism.  The current schema standard, <a href="http://json-schema.org">JSON Schema</a>, does not satisfy this requirement.
     </p>
     <p>
       JSchema fills this gap.  The design goals of JSchema are:
@@ -22,6 +22,7 @@
         <li>Its grammar should be at most 15 productions beyond JSON</li>
         <li>It should be flexible enough to specify most existing JSON content</li>
         <li>It should communicate the structure of the JSON document visually</li>
+        <li>It should be trivial to convert an example JSON document into a schema</li>
         <li>It should map cleanly to standard programming language concepts and data structures</li>
       </ul>
     </p>
@@ -29,6 +30,7 @@
       In order to retain simplicity it is necessary to forego some features.  JSchema does not support:
       <ul>
         <li>Fine-grained schema mixing</li>
+        <li>List/Array sizing</li>
         <li>Subtyping/specialization</li>
         <li>Various useful data types (e.g. intervals)</li>
       </ul>
@@ -55,10 +57,8 @@
   <a href="#string_type">'"string"'</a> |
   <a href="#boolean_type">'"boolean"'</a> |
   <a href="#date_type">'"date"'</a> |
-  <a href="#integer_type">'"integer"'</a> |
-  <a href="#decimal_type">'"decimal"'</a> |
-  <a href="#biginteger_type">'"biginteger"'</a> |
-  <a href="#bigdecimal_type">'"bigdecimal"'</a> |
+  <a href="#integer_type">'"int"'</a> |
+  <a href="#number_type">'"number"'</a> |
   <a href="#self_type">'"self"'</a> |
   <a href="#object_type">'"object"'</a>
 
@@ -109,47 +109,37 @@
 
   <a name="string_type"><h3>"string"</h3></a>
   <p>
-    A string may have a value of a standard JSON string.
+    A string may be a JSON string.
   </p>
 
   <a name="boolean_type"><h3>"boolean"</h3></a>
   <p>
-    A boolean may have a value of 'true' or 'false', sans quotes, per the JSON specification.
+    A boolean may have a value of 'true' or 'false', sans quotes.
   </p>
 
   <a name="date_type"><h3>"date"</h3></a>
   <p>
-    A date may have a value of a standard JSON string in any format specified by the W3C <a href="http://www.w3.org/TR/NOTE-datetime">NOTE-datetime</a>.
+    A date may be a JSON string in any format specified by the W3C <a href="http://www.w3.org/TR/NOTE-datetime">NOTE-datetime</a>.
   </p>
 
-  <a name="integer_type"><h3>"integer"</h3></a>
+  <a name="integer_type"><h3>"int"</h3></a>
   <p>
-    An integer may be a JSON int representing any 64-bit signed integer.  Environments unable to represent 64-bit integers (e.g. Javascript) may raise an error if a value cannot be represented.
+    An integer may be a JSON int.
   </p>
 
-  <a name="biginteger_type"><h3>"biginteger"</h3></a>
+  <a name="number_type"><h3>"number"</h3></a>
   <p>
-    A biginteger may be a JSON int representing a signed integer of arbitrary size.
-  </p>
-
-  <a name="decimal_type"><h3>"decimal"</h3></a>
-  <p>
-    A decimal may be a JSON number representing any double precision 64-bit floating point number.
-  </p>
-
-  <a name="decimal_type"><h3>"bigdecimal"</h3></a>
-  <p>
-    A bigdecimal may be a JSON number representing any number of arbitrary size and precision.
+    A number may be a JSON number.
   </p>
 
   <a name="self_type"><h3>"self"</h3></a>
   <p>
-    "self" refers to the schema defined by the current JSchema file.  This can be used to define recursive schemas, such as trees.
+    "self" refers to the schema defined by the current JSchema file.
   </p>
 
   <a name="object_type"><h3>"object"</h3></a>
   <p>
-    An object can be any arbitrary JSON object
+    An object may be an arbitrary JSON object.
   </p>
 
   <a name="struct_type"><h3>Struct Type</h3></a>
@@ -170,22 +160,22 @@
 
   <a name="array_type"><h3>Array Type</h3></a>
   <p>
-    An array type defines a JSON Array and the elements it contains.
+    An array may be a JSON Array with elements that conform to the type definition enclosed within the array.
   </p>
 
   <a name="map_type"><h3>Map Type</h3></a>
   <p>
-    A map type defines a JSON object with an arbitrary number of members, where the name of the pair can be any string, and the value must satisfy the right hand type definition.
+    A map may be a JSON object with an arbitrary number of members, where the name of the pair can be a JSON string, and the value must satisfy the right hand type definition.
   </p>
 
   <a name="enum_type"><h3>Enum Type</h3></a>
   <p>
-    An enum must have a string value from domain specified in the array on the right hand side.
+    An enum must have a JSON string value from domain specified in the array on the right hand side.
   </p>
 
   <h2>Nullability</h2>
   <p>
-    All values in a JSchema schema are nullable.  The interpretation of the null value is left to implementations, with the caveat that null should be preserved for re-serialization.  Additionally, absent values in a JSON object should be interpreted as null.
+    All values in a JSchema schema are nullable.  The interpretation of the null value is left to implementations, with the caveat that null should be preserved for re-serialization.
   </p>
 
   <h2>Comments</h2>
