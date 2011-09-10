@@ -67,19 +67,20 @@
   <h2>Implementation Notes</h2>
   <ul>
     <li>All functions must have unique names.</li>
+    <li>Note that arguments are return values are not necessarily JSON documents: they may be JSON document fragments corresponding to JSchema types.</li>
     <li>If a function does not specify a return value, it is interpreted as being a 'void' function.</li>
     <li>The 'self' type is not supported in JSchema-RPC files.</li>
-    <li>JSchema is explicitly silent on things like authentication, which should be handled at the protocol or application level.</li>
+    <li>JSchema-RPC is explicitly silent on things like authentication, which should be handled at the protocol or application level.</li>
   </ul>
   <h2>Invocation</h2>
   <p>
-    Given a JSchema-RPC Document and a function specification, invocation of the function will be done as follows:
-    <ul>
-      <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one) using the separator appropriate for the protocol</li>
-      <li>The arguments will be passed by name in a manner appropriate for the scheme specified in the composed URL.  In the case of http/https, this will be either as a query string or as post variables as a GET or POST, respectively.  If an argument is not included it will be interpreted as 'null' unless a default value is specified.</li>
-      <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
-    </ul>
+    Given a JSchema-RPC Document and a function specification, invocation of the function is done as follows:
   </p>
+  <ul>
+    <li>The "name" of the function will be appended to the "url" (or a different URL if the user has specified one) using the separator appropriate for the protocol</li>
+    <li>The arguments will be passed by name in a manner appropriate for the scheme specified in the composed URL.  In the case of http/https, this will be either as a query string or as post variables as a GET or POST, respectively.  If an argument is not included it will be interpreted as 'null' unless a default value is specified.</li>
+    <li>The return content will conform to the type specified as the "return_type" unless an exception is returned, in which case it will conform to the grammar specified in the "Exceptions" section.</li>
+  </ul>
   <h2>Exceptions</h2>
   <p>
     Exceptions may be raised by a JSchema-RPC end point using a return value of the following form:

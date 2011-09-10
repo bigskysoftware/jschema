@@ -18,23 +18,23 @@
     </p>
     <p>
       JSchema fills this gap.  The design goals of JSchema are:
-      <ul>
-        <li>Its grammar should be at most 15 productions beyond JSON</li>
-        <li>It should be flexible enough to specify most existing JSON content</li>
-        <li>It should communicate the structure of the JSON document visually</li>
-        <li>It should be trivial to convert an example JSON document into a schema</li>
-        <li>It should map cleanly to standard programming language concepts and data structures</li>
-      </ul>
     </p>
+    <ul>
+      <li>Its grammar should be at most 15 productions beyond JSON</li>
+      <li>It should be flexible enough to specify most existing JSON content</li>
+      <li>It should communicate the structure of the JSON document visually</li>
+      <li>It should be trivial to convert an example JSON document into a schema</li>
+      <li>It should map cleanly to standard programming language concepts and data structures</li>
+    </ul>
     <p>
       In order to retain simplicity it is necessary to forego some features.  JSchema does not support:
-      <ul>
-        <li>Fine-grained schema mixing</li>
-        <li>List/Array sizing</li>
-        <li>Subtyping/specialization</li>
-        <li>Various useful data types (e.g. intervals)</li>
-      </ul>
     </p>
+    <ul>
+      <li>Fine-grained schema mixing</li>
+      <li>List/Array sizing</li>
+      <li>Subtyping/specialization</li>
+      <li>Various useful data types (e.g. intervals)</li>
+    </ul>
     <h2>Schema URL and File Conventions</h2>
     <p>
       Assuming JSON content matching a given JSchema is available at <pre>http://example.com/path/</pre> then the JSchema should be available at <pre>http://example.com/path/?JSchema</pre>
@@ -43,15 +43,15 @@
       Locally, JSchema files should end with the <code>.jsc</code> file suffix.
     </p>
     <h2>Grammar</h2>
+    <p>A JSchema document is a valid JSON document conforming to the following grammar:</p>
     <pre>
 &lt;type> ::= 
   &lt;core_types> |
-  &lt;struct_type> |
-  <a href="#type_defs">&lt;string></a> |
   &lt;array_type> |
-  &lt;map_type> |
   &lt;enum_type> |
-  &lt;ref_type>
+  &lt;map_type> |
+  &lt;struct_type> |
+  <a href="#type_defs">&lt;string></a>
 
 <a name="core_type_g">&lt;core_types></a> ::=
   <a href="#string_type">'"string"'</a> |
@@ -62,6 +62,19 @@
   <a href="#number_type">'"number"'</a> |
   <a href="#self_type">'"self"'</a> |
   <a href="#object_type">'"object"'</a>
+
+<a href="#array_type">&lt;array_type></a> ::= 
+    '[' type ']'
+
+<a href="#enum_type">&lt;enum_type></a> ::= 
+      '{' '"enum"' ':' '[' &lt;enum_values> ']' '}'
+
+&lt;enum_values> ::=
+      string
+      string ',' &lt;enum_values>
+
+<a href="#map_type">&lt;map_type></a> ::=
+    '{' '"map_of"' ':' &lt;type> '}'
 
 <a href="#struct_type">&lt;struct_type></a> ::= 
   '{' &lt;typedefs_and_props> '}'
@@ -91,19 +104,6 @@
 
 &lt;prop> ::= 
   &lt;string> ':' &lt;type>
-
-<a href="#array_type">&lt;array_type></a> ::= 
-  '[' type ']'
-
-<a href="#map_type">&lt;map_type></a> ::=
-  '{' '"map_of"' ':' &lt;type> '}'
-
-<a href="#enum_type">&lt;enum_type></a> ::= 
-  '{' '"enum"' ':' '[' &lt;enum_values> ']' '}'
-
-&lt;enum_values> ::=
-  string
-  string ',' &lt;enum_values>
     </pre>
     
   <h2>Types</h2>
@@ -148,6 +148,21 @@
     An object may be an arbitrary JSON object.
   </p>
 
+  <a name="array_type"><h3>Array Type</h3></a>
+  <p>
+    An array may be a JSON Array with elements that conform to the type definition enclosed within the array.
+  </p>
+
+  <a name="enum_type"><h3>Enum Type</h3></a>
+  <p>
+    An enum must have a JSON string value from domain specified in the array on the right hand side.
+  </p>
+
+  <a name="map_type"><h3>Map Type</h3></a>
+  <p>
+    A map may be a JSON object with an arbitrary number of members, where the name of the pair can be a JSON string, and the value must satisfy the right hand type definition.
+  </p>
+
   <a name="struct_type"><h3>Struct Type</h3></a>
   <p>
     A struct type defines a JSON object by a series of name/type pairs. For each name/type pair, a conforming JSON object, if a pair with the name is present, will have a value conforming to the type.  If the name is not present, it is interpreted as being null.  Additionally, pairs not mentioned in the Struct Type may be present and should be preserved at runtime for re-serialization.
@@ -164,24 +179,9 @@
     Typedefs may be either Struct Types or Enum Types.
   </p>
 
-  <a name="array_type"><h3>Array Type</h3></a>
-  <p>
-    An array may be a JSON Array with elements that conform to the type definition enclosed within the array.
-  </p>
-
-  <a name="map_type"><h3>Map Type</h3></a>
-  <p>
-    A map may be a JSON object with an arbitrary number of members, where the name of the pair can be a JSON string, and the value must satisfy the right hand type definition.
-  </p>
-
-  <a name="enum_type"><h3>Enum Type</h3></a>
-  <p>
-    An enum must have a JSON string value from domain specified in the array on the right hand side.
-  </p>
-
   <h2>Nullability</h2>
   <p>
-    All values in a JSchema schema are nullable.  The interpretation of the null value is left to implementations, with the caveat that null should be preserved for re-serialization.
+    All values in a JSON document described by a JSchema schema may have a null value.  The interpretation of the null value is left to implementations, with the caveat that null should be preserved for re-serialization.
   </p>
 
   <h2>Comments</h2>
