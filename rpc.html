@@ -127,26 +127,26 @@
   },
   "functions" : [
     { "name" : "getEmployee",
-      "description" : "Returns the employee of the given name",
+      "description" : "Returns the employee with the given id",
       "args" : [ {"id" : "int" } ],
-      "return_type" : "Employee"
+      "returns" : "Employee"
     },
     { "name" : "updateEmployee",
       "description" : "Updates the given employee",
       "args" : [ { "employee" : "Employee" } ],
-      "return_type" : "boolean"
+      "returns" : "boolean"
     }
   ]
 }
       </td>
       <td>
-// Assuming the above file is in EmployeeController.jsc-rpc:
+// Assuming the above file is in EmployeesApi.jsc-rpc:
 
-var myEmp = EmployeeController.getEmployee(42)
+var myEmp = EmployeesApi.getEmployee(42)
 
 myEmp.Age++
 
-if( EmployeeController.updateEmployee(myEmp) ) {
+if( EmployeesApi.updateEmployee(myEmp) ) {
   print( "Updated the age of ${myEmp.FirstName}")
 }
       </td>
