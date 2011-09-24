@@ -25,36 +25,41 @@
       The grammar for a JSchema-RPC file builds on the grammar for JSchema and JSON:
     <pre>
 &lt;rpc> ::= 
-  '{'
-    '"url"' ':' &lt;string> 
-    &lt;optional_description>
-    &lt;optional_typedefs>
-    '"functions"' ':' '[' &lt;function_specs> ']'
-  '}'
+    '{'
+      '"url"' ':' &lt;string> 
+      &lt;optional_description>
+      &lt;optional_typedefs>
+      '"functions"' ':' '[' &lt;function_specs> ']'
+    '}'
   
 &lt;optional_description>
-  '' |
-  ',' '"description"' ':' &lt;string> ',' 
+    '' |
+    ',' '"description"' ':' &lt;string> ',' 
 
 &lt;optional_typedefs>
-  '' |
-  ',' &lt;typedefs_map>
+    '' |
+    ',' &lt;typedefs_map>
 
 &lt;function_specs> ::= 
-  &lt;function_spec> | 
-  &lt;function_spec> ',' &lt;function_specs> 
+    '' |
+    &lt;function_spec> | 
+    &lt;function_spec> ',' &lt;function_specs> 
 
 &lt;function_spec> ::= 
-  '{' '"name"' ':' &lt;string>
+    '{' '"name"' ':' &lt;string>
       &lt;optional_description>
-      ',' '"args"' ':' '[' &lt;arg_specs> ']'
+      &lt;optional_args_spec>
       &lt;optional_return_type>
-  '}'
+    '}'
+
+&lt;optional_args_spec> ::=
+    '' |
+    ',' '"args"' ':' '[' &lt;arg_specs> ']'
 
 &lt;arg_specs> ::=
-  '' |
-  &lt;arg_spec> |
-  &lt;arg_spec> ',' &lt;arg_specs>
+    '' |
+    &lt;arg_spec> |
+    &lt;arg_spec> ',' &lt;arg_specs>
   
 &lt;arg_spec> ::=
   '{' &lt;string> ':' &lt;type> &lt;optional_default> &lt;optional_description> '}'
@@ -69,8 +74,9 @@
   <h2>Implementation Notes</h2>
   <ul>
     <li>All functions must have unique names.</li>
-    <li>Note that arguments are return values are not necessarily JSON documents: they may be JSON document fragments corresponding to JSchema types.</li>
+    <li>Note that arguments and return values are not necessarily JSON documents: they may be JSON document fragments corresponding to JSchema types.</li>
     <li>If a function does not specify a return value, it is interpreted as being a 'void' function.</li>
+    <li>If a function does not specify an argument list, it is interpreted as having no arguments.</li>
     <li>The 'self' type is not supported in JSchema-RPC files.</li>
     <li>JSchema-RPC is explicitly silent on things like authentication, which should be handled at the protocol or application level.</li>
   </ul>
