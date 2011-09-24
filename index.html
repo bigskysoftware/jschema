@@ -46,38 +46,38 @@
     <p>A JSchema document is a valid JSON document conforming to the following grammar:</p>
     <pre>
 &lt;type> ::= 
-  &lt;core_types> |
-  &lt;array_type> |
-  &lt;enum_type> |
-  &lt;map_type> |
-  &lt;struct_type> |
-  <a href="#type_defs">&lt;string></a>
+    &lt;core_types> |
+    &lt;array_type> |
+    &lt;enum_type> |
+    &lt;map_type> |
+    &lt;struct_type> |
+    <a href="#type_defs">&lt;string></a>
 
 <a name="core_type_g">&lt;core_types></a> ::=
-  <a href="#string_type">'"string"'</a> |
-  <a href="#boolean_type">'"boolean"'</a> |
-  <a href="#date_type">'"date"'</a> |
-  <a href="#uri_type">'"uri"'</a> |
-  <a href="#integer_type">'"int"'</a> |
-  <a href="#number_type">'"number"'</a> |
-  <a href="#self_type">'"self"'</a> |
-  <a href="#object_type">'"object"'</a>
+    <a href="#string_type">'"string"'</a> |
+    <a href="#boolean_type">'"boolean"'</a> |
+    <a href="#date_type">'"date"'</a> |
+    <a href="#uri_type">'"uri"'</a> |
+    <a href="#integer_type">'"int"'</a> |
+    <a href="#number_type">'"number"'</a> |
+    <a href="#self_type">'"self"'</a> |
+    <a href="#object_type">'"object"'</a>
 
 <a href="#array_type">&lt;array_type></a> ::= 
     '[' type ']'
 
 <a href="#enum_type">&lt;enum_type></a> ::= 
-      '{' '"enum"' ':' '[' &lt;enum_values> ']' '}'
+    '{' '"enum"' ':' '[' &lt;enum_values> ']' '}'
 
 &lt;enum_values> ::=
-      string
-      string ',' &lt;enum_values>
+    string
+    string ',' &lt;enum_values>
 
 <a href="#map_type">&lt;map_type></a> ::=
     '{' '"map_of"' ':' &lt;type> '}'
 
 <a href="#struct_type">&lt;struct_type></a> ::= 
-  '{' &lt;typedefs_and_props> '}'
+    '{' &lt;typedefs_and_props> '}'
 
 &lt;typedefs_and_props> ::= 
     &lt;typedefs_map> ',' &lt;props> |
@@ -87,22 +87,22 @@
     '"typedefs@"' ':' '{' &lt;type_defs> '}'
 
 <a href="#type_defs">&lt;type_defs></a> ::= 
-  &lt;type_def> |
-  &lt;type_def> ',' &lt;type_defs>
+    &lt;type_def> |
+    &lt;type_def> ',' &lt;type_defs>
 
 &lt;type_def> ::=
-  &lt;string> ':' &lt;type_def_type>
+    &lt;string> ':' &lt;type_def_type>
 
 &lt;type_def_type> ::= 
     &lt;struct_type> |
     &lt;enum_type>
 
 &lt;props> ::= 
-  &lt;prop> |
-  &lt;prop> ',' &lt;props>
+    &lt;prop> |
+    &lt;prop> ',' &lt;props>
 
 &lt;prop> ::= 
-  &lt;string> ':' &lt;type>
+    &lt;string> ':' &lt;type>
     </pre>
     
   <h2>Types</h2>
